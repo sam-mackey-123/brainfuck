@@ -11,8 +11,6 @@ void Interpreter::consume(std::istream& stream)
     while ( stream )
     {
         char a { stream.get() };
-        int i { stream.tellg() };
-        std::cout << i;
         if (a == '>'){
             m_pointer += 1;
         } else if ( a == '<') {
