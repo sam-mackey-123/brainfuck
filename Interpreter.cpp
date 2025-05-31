@@ -20,7 +20,7 @@ void Interpreter::consume(std::istream& stream)
         } else if ( a == '-') {
             m_memory[m_pointer] -= 1;
         } else if ( a == '.') {
-            std::cout << m_memory[m_pointer];
+            std::cout << static_cast<char>(m_memory[m_pointer]);
         } else if ( a == ',') {
             char b;
             std::cin >> b;
@@ -28,13 +28,19 @@ void Interpreter::consume(std::istream& stream)
         } else if ( a == '[') {
             m_jump.push_back(stream.tellg());
             if (m_memory[m_pointer] == 0){
-                while ( stream.get() != ']'); 
+                int depth { 1 };
+                char c;
+                while ( stream.get(c) && depth != 0){
+                    if ( c == '[' ) depth++;
+                    else if ( c == ']' ) depth--;
+                } 
             }
             
         } else if ( a == ']') {
+            std::streampos p {m_jump.back() - 1};
+            m_jump.pop_back();
             if (m_memory[m_pointer] != 0){
-                stream.seekg(m_jump.back());
-                m_jump.pop_back();
+                stream.seekg(p);
             }
         }
 
