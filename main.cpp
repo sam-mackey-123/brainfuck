@@ -1,26 +1,20 @@
 #include <iostream>
 #include <fstream>
+#include "Interpreter.h"
 
-void printStream(std::istream& stream)
-{
-    while ( stream )
-    {
-        char a { stream.get() };
-        std::cout << a;
-    }
-}
 
 int main(int argc, char* argv[])
 {
+    Interpreter I {};
     if (argc == 2)
     {
         std::string fileName {argv[1]};
         std::ifstream myFile(fileName);
-        printStream(myFile);
+        I.consume(myFile);
     } 
     else
     {
-        printStream(std::cin);
+        I.consume(std::cin);
     }
     return 0;
 }

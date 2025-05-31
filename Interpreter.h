@@ -7,8 +7,8 @@
 class Interpreter
 {
     private:
-        std::array<int, 30000> m_memory;
-        std::vector<int> m_jump;
+        std::array<char, 30000> m_memory;
+        std::vector<std::streampos> m_jump;
         int m_pointer;
 
     public:
