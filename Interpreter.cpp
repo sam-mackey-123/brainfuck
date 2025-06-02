@@ -13,7 +13,7 @@ void Interpreter::consume(std::istream& stream)
         char a { stream.get() };
         int x { stream.tellg() };
 
-        if (a != '\n') std::cout << m_pointer << ' ' << x << ' ' << a << '\n';
+        // if (a != '\n') std::cout << m_pointer << ' ' << x << ' ' << a << '\n';
         if (a == '>'){
             m_pointer += 1;
         } else if ( a == '<') {
@@ -29,14 +29,18 @@ void Interpreter::consume(std::istream& stream)
             std::cin >> b;
             m_memory[m_pointer] = b;            
         } else if ( a == '[') {
-            m_jump.push_back(stream.tellg());
             if (m_memory[m_pointer] == 0){
                 int depth { 1 };
                 char c;
                 while ( depth != 0 && stream.get(c)){
-                    if ( c == '[' ) depth++;
-                    else if ( c == ']' ) depth--;
+                    if ( c == '[' ) {
+                        depth++;
+                    } else if ( c == ']' ) {
+                        depth--;
+                    }
                 } 
+            } else {
+                m_jump.push_back(stream.tellg());
             }
             
         } else if ( a == ']') {
