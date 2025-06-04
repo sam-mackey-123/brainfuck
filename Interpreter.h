@@ -10,15 +10,16 @@ class Interpreter
     private:
         std::array<int, 30000> m_memory;
         std::vector<std::streampos> m_jump;
-        int m_pointer;
+        int m_memoryPointer;
+        int m_maxMemoryPointer;
+        int m_programPointer;
         int m_stepCount;
         int m_maxStep;
-        int m_maxPointer;
         std::ofstream m_out { "state.txt" };
         void outputState();
 
     public:
-        void consume(std::istream& stream);
+        void consume(const std::string& program);
         Interpreter(int maxStep);
         ~Interpreter();
 
